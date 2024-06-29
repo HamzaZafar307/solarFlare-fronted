@@ -1,0 +1,39 @@
+<div>
+  <label for="config">Select Configuration: </label>
+  <select id="config" [(ngModel)]="selectedConfig" (change)="onConfigChange()">
+    <option *ngFor="let config of configurations" [value]="config">{{config}} kW</option>
+  </select>
+</div>
+
+<div *ngIf="details">
+  <h2>Configuration Details</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Cost</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let detail of details; let i = index">
+        <td *ngIf="i === 0">
+          <select [(ngModel)]="detail.item" data-label="Item">
+            <option *ngFor="let name of names" [value]="name">{{name}}</option>
+          </select>
+        </td>
+        <td *ngIf="i !== 0" data-label="Item">{{ detail.item }}</td>
+        <td data-label="Quantity"><input type="number" [(ngModel)]="detail.quantity" (ngModelChange)="updateCost(detail)" /></td>
+        <td data-label="Price"><input type="number" [(ngModel)]="detail.price" (ngModelChange)="updateCost(detail)" /></td>
+        <td data-label="Cost">{{ detail.cost }}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3">Total Cost</td>
+        <td>{{ calculateTotal() }}</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

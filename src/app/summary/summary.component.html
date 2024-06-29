@@ -1,0 +1,28 @@
+<app-form (dataChanged)="receiveData($event)"></app-form>
+
+<div id="Summary-container" *ngIf="summaryArray.length > 0">
+  <h3>Summary</h3>
+  <div class="buttons">
+    <button title="Save Data" (click)="saveData()">
+      <i class="fas fa-save"></i>
+    </button>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Task</th>
+        <th>Required Hours</th>
+        <th>Required Cost</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of summaryArray">
+        <td>{{ task.item.name }}</td>
+        <td>{{ task.item.selectedvalue }}</td>
+        <td>{{ task.hours.value }}</td>
+        <td>{{ task.cost.value }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

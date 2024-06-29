@@ -1,0 +1,48 @@
+<div class="form-container">
+    <table id="Editable-TableData">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th></th>
+                <th>Task Detail</th>
+                <th>Hours</th>
+                <th>Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let task of objectsArray; let i = index">
+                <td><label><b>{{task.item.name}}</b></label></td>
+                <td>-</td>
+                <td>
+                    <select *ngIf="task.item.type === 'dropdown'" [(ngModel)]="task.item.selectedvalue">
+                        <option *ngFor="let option of task.item.options" [value]="option">{{option}}</option>
+                    </select>
+                    <input *ngIf="task.item.type !== 'dropdown'" type="{{task.item.type}}"
+                        [(ngModel)]="task.item.selectedvalue" />
+                    <button id="btn-edit" title="Edit Field" *ngIf="!isEditing[i]" class="btn btn-danger"
+                        (click)="changeFieldType(i)">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <button id="btn-cancel" title="Cancel Edit" *ngIf="isEditing[i]" class="btn btn-primary"
+                        (click)="cancelEdit(i)">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </td>
+                <td><input *ngIf="task.hours.type === 'number'" type="number" [(ngModel)]="task.hours.value" /></td>
+                <td><input *ngIf="task.cost.type === 'number'" type="number" [(ngModel)]="task.cost.value" /></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="btn-add-delete">
+    <button id="btn-add" title="Add Field" class="btn btn-custom" (click)="addNewField()">
+        <i class="bi bi-plus"></i>
+    </button>
+    <button id="btn-delete" title="Delete Field" class="btn btn-custom" (click)="removeField()">
+        <i class="bi bi-dash"></i>
+    </button>
+    <button id="btn-submit" title="Submit Form" class="btn btn-custom" (click)="submitForm()">
+        Submit
+    </button>
+</div>
+
